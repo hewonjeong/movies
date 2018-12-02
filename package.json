@@ -1,0 +1,54 @@
+{
+  "name": "movies",
+  "version": "0.0.1",
+  "description": "🎬 movie recommendation engines",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev ./src/index.ts",
+    "build": "tsc",
+    "serve": "node build/index.js",
+    "start": "npm run serve",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "prettify": "prettier --write './src/**/*.{ts,tsx}'"
+  },
+  "author": "Hewon Jeong",
+  "license": "ISC",
+  "repository": "https://github.com/HewonJeong/movies.git",
+  "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.15",
+    "husky": "^1.1.3",
+    "jest": "^23.6.0",
+    "lint-staged": "^8.0.4",
+    "prettier": "^1.14.3",
+    "ts-jest": "^23.10.4",
+    "ts-node-dev": "^1.0.0-pre.30",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "typescript": "^3.1.6"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testMatch": [
+      "**/__tests__/*.+(ts|tsx|js)"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@types/cheerio": "^0.22.10",
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2"
+  }
+}

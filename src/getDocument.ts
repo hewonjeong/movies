@@ -1,7 +1,12 @@
 import axios from 'axios'
 
+const https = require('https')
+
+const httpsAgent = new https.Agent({
+  rejectUnauthorized: false,
+})
+
 export default async (url: string) => {
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0' // TODO: Remove
-  const response = await axios.get<string>(url)
+  const response = await axios.get<string>(url, { httpsAgent })
   return response.data
 }

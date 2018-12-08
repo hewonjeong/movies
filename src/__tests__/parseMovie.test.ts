@@ -1,14 +1,8 @@
-import fs from 'fs'
-import path from 'path'
 import parseMovie from '../parseMovie'
-
-const document = fs.readFileSync(
-  path.resolve(__dirname, './samples/document.html'),
-  'utf8'
-)
+import { document } from './samples'
 
 describe('parseMovie()', () => {
-  it('with sample', () => {
+  it('basic', () => {
     const expected = {
       audience: { average: 4.1, rating: 83957, likeRate: 0.79 },
       tomatoMeter: {

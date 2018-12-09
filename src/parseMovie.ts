@@ -1,4 +1,5 @@
 import cheerio from 'cheerio'
+import { Movie } from './types'
 
 enum Genre {
   Action,
@@ -16,8 +17,12 @@ enum Genre {
 }
 
 // TODO: define Document type and replace string parameter
-export default (document: string) => {
+export default (document: string): Movie => {
   const $ = cheerio.load(document)
+  const key = $('meta[property=og\\:url]')
+    .attr('content')
+    .replace('https://www.rottentomatoes.com/m/', '')
+    .replace('/', '')
 
   const parseTomatoMeter = (dom: Cheerio) => {
     const [average, counts, fresh, rotten] = dom
@@ -60,19 +65,22 @@ export default (document: string) => {
       .find('a')
       .map((_, elem) => $(elem).text())
       .toArray()
+      .map(String)
     const writtors = getRow('Written By')
       .find('a')
       .map((_, elem) => $(elem).text())
       .toArray()
+      .map(String)
     const releasedAt = getRow('In Theaters')
       .find('time')
       .attr('datetime')
-    const boxOffice = parseInt(
-      getRow('Box Office')
-        .text()
-        .replace(/\$|,/gi, ''),
-      10
-    )
+    const boxOffice =
+      parseInt(
+        getRow('Box Office')
+          .text()
+          .replace(/\$|,/gi, ''),
+        10
+      ) || undefined
     return {
       description,
       genre,
@@ -86,14 +94,17 @@ export default (document: string) => {
     }
   }
 
-  const title = $('h1.title.hidden-xs')
+  const title = $('#movie-title')
+    .contents()
+    .first()
     .text()
     .trim()
-
   const year = parseInt(
     $('.h3.year')
       .first()
-      .text(),
+      .text()
+      .replace('(', '')
+      .replace(')', ''),
     10
   )
   const tomatoMeter = parseTomatoMeter($('#scoreStats'))
@@ -138,7 +149,8 @@ export default (document: string) => {
   const infoDom = $('.panel.movie_info.media')
   const infos = parseInfo(infoDom)
 
-  const casts = $('#movie-cast .castSection .media-body a')
+  const castsDom = $('.cast-item.media.inlineBlock .articleLink')
+  const casts = castsDom
     .slice(0, 8)
     .map((_, elem) =>
       $(elem)
@@ -146,8 +158,10 @@ export default (document: string) => {
         .trim()
     )
     .toArray()
+    .map(String)
 
   return {
+    key,
     audience,
     tomatoMeter,
     consensus,

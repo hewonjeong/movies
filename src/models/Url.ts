@@ -1,9 +1,8 @@
 import awsSdk from 'aws-sdk'
-import aws from '../config/aws'
+import { aws } from '../config/constans'
 
 export default class Url {
   static client = new awsSdk.DynamoDB.DocumentClient(aws)
-
   static TABLE = 'urls'
 
   static async create(key: string) {

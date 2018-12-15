@@ -16,6 +16,8 @@ describe('parseMovie()', () => {
         "Black Panther elevates superhero cinema to thrilling new heights while telling one of the MCU's most absorbing stories -- and introducing some of its most fully realized characters.",
       title: 'Black Panther',
       year: 2018,
+      poster:
+        'https://resizing.flixster.com/1UnADcPnlxUtw9k6agsuRVium08=/fit-in/200x296.2962962962963/v1.bTsxMjU1NzcyNTtqOzE3OTIwOzEyMDA7MTY4ODsyNTAw',
       casts: [
         'Chadwick Boseman',
         'Michael B. Jordan',

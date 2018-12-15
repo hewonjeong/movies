@@ -38,10 +38,13 @@ export default (document: string): Movie => {
       })
       .toArray()
       .map(s => parseFloat(String(s)))
-
-    return { average, counts, fresh, rotten }
+    const score = fresh / counts
+    return { score, average, counts, fresh, rotten }
   }
-
+  const poster = $('#poster_link img')
+    .attr('data-srcset')
+    .split(' ')[0]
+  console.log('poster', poster)
   const parseInfo = (dom: Cheerio) => {
     const description = dom
       .find('#movieSynopsis')
@@ -168,6 +171,7 @@ export default (document: string): Movie => {
     title,
     year,
     casts,
+    poster,
     ...infos,
   }
 }

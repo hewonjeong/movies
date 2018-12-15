@@ -3,6 +3,7 @@ import { stringType } from 'aws-sdk/clients/iam'
 export interface Movie {
   key: string
   description: string
+  poster: string
   genre: number[]
   boxOffice?: number
   releasedAt: string
@@ -15,6 +16,7 @@ export interface Movie {
     likeRate: number
   }
   tomatoMeter: {
+    score: number
     average: number
     counts: number
     fresh: number

@@ -4,6 +4,7 @@ import { document } from './samples'
 describe('parseMovie()', () => {
   it('basic', () => {
     const expected = {
+      key: 'black_panther_2018',
       audience: { average: 4.1, rating: 83957, likeRate: 0.79 },
       tomatoMeter: {
         average: 8.2,

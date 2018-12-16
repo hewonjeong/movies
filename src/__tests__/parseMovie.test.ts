@@ -7,6 +7,7 @@ describe('parseMovie()', () => {
       key: 'black_panther_2018',
       audience: { average: 4.1, rating: 83957, likeRate: 0.79 },
       tomatoMeter: {
+        score: 0.97,
         average: 8.2,
         counts: 438,
         fresh: 424,

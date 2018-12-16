@@ -29,28 +29,29 @@ export default class Movie {
   }
 
   static async scan(scanner: Scanner) {
-    let res: AttributeMap[] = []
+    let res: MovieType[] = []
     let exclusiveStartKey = undefined
     do {
       const params = getParams(scanner, exclusiveStartKey)
       const { Items = [], LastEvaluatedKey = {} } = await Movie.client
         .scan(params)
         .promise()
-      res = res.concat(Items)
+      res = res.concat(Items as MovieType[])
       exclusiveStartKey = LastEvaluatedKey.key
     } while (exclusiveStartKey)
-
     return res
   }
 }
 
 const getAttributes = (scanner: Scanner) => {
-  const { minYear, maxYear, title, rating, genre } = scanner
+  const { minYear, maxYear, title, rating, genre, popcornScore } = scanner
   return [
     !!title && 'title',
     !!(minYear || maxYear) && 'year',
     !!rating && 'rating',
     !!genre && 'genre',
+    !!popcornScore && 'audience',
+    !!popcornScore && 'likeRate',
   ]
     .filter(Boolean)
     .reduce((acc, cur) => {
@@ -75,17 +76,16 @@ const getGenreExpresstion = (length: number) => {
 }
 const getParams = (scanner: Scanner, exclusiveStartKey?: string) => {
   const { minYear, maxYear, title, rating, genre } = scanner
-  const { tomatoScore, popcornScore } = scanner
-
+  const { popcornScore } = scanner
   const expression = [
     title && 'contains (#title, :title)',
     minYear && '#year >= :minYear',
     maxYear && '#year <= :maxYear',
     genre && getGenreExpresstion(genre.length),
+    popcornScore && '#audience.#likeRate >= :audience',
   ]
     .filter(Boolean)
     .join(' and ')
-
   const attributes = getAttributes(scanner)
 
   return {
@@ -94,13 +94,14 @@ const getParams = (scanner: Scanner, exclusiveStartKey?: string) => {
     ExpressionAttributeNames: attributes,
     ExpressionAttributeValues: Object.assign(
       {},
+      {
         ':minYear': minYear,
         ':maxYear': maxYear,
         ':title': title,
+        ':audience': popcornScore,
         // TODO: add more ExpressionAttributeValues
         // ':tomatoScore': tomatoScore,
         // ':rating': rating,
-      // ...genreValues,
       },
       genre && getGenre(genre)
     ),

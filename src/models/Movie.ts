@@ -110,12 +110,12 @@ const getParams = (scanner: Scanner, exclusiveStartKey?: string) => {
       : undefined,
   }
 }
-interface Scanner {
+export interface Scanner {
   minYear?: number
   maxYear?: number
-  title?: string
+  genre?: number[]
   tomatoScore?: number
   popcornScore?: number
+  title?: string
   rating?: string
-  genre?: number[]
 }

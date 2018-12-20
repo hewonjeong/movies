@@ -5,10 +5,9 @@ import { Movie as MovieType } from '../../../types/'
 export const getMovie = (req: Request, res: Response) => {}
 
 export const getMovies = async (req: Request, res: Response) => {
-  const result: MovieType[] = await Movie.scan(getScanner(req.query))
-  res.send({
-    list: parse(result),
-  })
+  const scanner = getScanner(req.query)
+  const result: MovieType[] = await Movie.scan(scanner)
+  res.send({ list: parse(result, scanner) })
 }
 
 const getScanner = (query: any): Scanner => {
@@ -23,14 +22,14 @@ const getScanner = (query: any): Scanner => {
   }
 }
 
-const parse = (movies: MovieType[]) => {
+const parse = (movies: MovieType[], scanner: Scanner) => {
   return movies
     .filter(movie => {
       const {
         audience: { likeRate },
       } = movie
       const tomatoScore = getTomatoScore(movie)
-      return tomatoScore >= 0.85 && likeRate >= 0.8
+      return scanner.tomatoScore ? tomatoScore >= scanner.tomatoScore : true
     })
     .sort((a, b) => getTomatoScore(a) - getTomatoScore(b))
 }

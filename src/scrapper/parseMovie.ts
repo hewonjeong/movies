@@ -1,5 +1,5 @@
 import cheerio from 'cheerio'
-import { Movie } from './types'
+import { Movie } from '../types'
 
 enum Genre {
   Action,

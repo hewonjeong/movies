@@ -1,4 +1,4 @@
-import parseMovie from '../parseMovie'
+import parseMovie from '../scrapper/parseMovie'
 import { document } from './samples'
 
 describe('parseMovie()', () => {

@@ -2,9 +2,9 @@ import env from '../config/env'
 env()
 
 import puppeteer from 'puppeteer'
-import parseAward from './parseAwards'
+import parseAward from '../parsers/parseAwards'
 import Award from '../models/Award'
-import { Award as IAward } from './Awards'
+import { Award as IAward } from '../types/Awards'
 
 // config
 const config = {

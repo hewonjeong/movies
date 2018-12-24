@@ -1,4 +1,4 @@
-import parseAward from '../scrapper/parseAwards'
+import parseAward from '../parsers/parseAwards'
 import { event } from './samples'
 
 describe('parseMovie()', () => {

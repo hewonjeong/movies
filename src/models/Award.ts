@@ -1,6 +1,6 @@
 import awsSdk from 'aws-sdk'
 import { aws } from '../config/constans'
-import { Award as AwardType } from '../scrapper/Awards'
+import { Award as AwardType } from '../types/Awards'
 
 export default class Award {
   static client = new awsSdk.DynamoDB.DocumentClient(aws)

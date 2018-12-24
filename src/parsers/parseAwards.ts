@@ -1,4 +1,4 @@
-import { Award, Event, AwardType } from './Awards'
+import { Award, Event, AwardType } from '../types/Awards'
 import cheerio from 'cheerio'
 
 export default (document: string): Award[] => {

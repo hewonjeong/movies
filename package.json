@@ -4,7 +4,8 @@
   "description": "🎬 movie recommendation engines",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev ./src/index.ts",
+    "server": "ts-node-dev ./src/index.ts",
+    "dev": "ts-node-dev",
     "create-tables": "ts-node-dev ./src/database/createTables.ts",
     "delete-tables": "ts-node-dev ./src/database/deleteTables.ts",
     "build": "tsc",
@@ -41,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run test"
+      "pre-commit": "lint-staged && yarn run test"
     }
   },
   "lint-staged": {
@@ -61,6 +62,7 @@
     "@types/lodash": "^4.14.119",
     "@types/lusca": "^1.5.0",
     "@types/passport": "^1.0.0",
+    "@types/puppeteer": "^1.11.1",
     "aws-sdk": "^2.382.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
@@ -72,6 +74,7 @@
     "express-validator": "^5.3.1",
     "lodash": "^4.17.11",
     "lusca": "^1.6.1",
-    "passport": "^0.4.0"
+    "passport": "^0.4.0",
+    "puppeteer": "^1.11.0"
   }
 }

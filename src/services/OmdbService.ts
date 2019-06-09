@@ -1,19 +1,18 @@
 import env from '../config/env'
 env()
 
-import Axios from 'axios'
+import aixos from 'axios'
 import { num } from '../utils/numbers'
 
 const API = 'http://www.omdbapi.com'
 const API_KEY = process.env.OMDB_API_KEY
 
 const fetchMovie = async (id: string) => {
-  const { data } = await Axios.get<Response>(API, {
+  const { data } = await aixos.get<Response>(API, {
     params: { apikey: API_KEY, i: id },
   })
   return processResponse(data)
 }
-export default fetchMovie
 
 export const processResponse = (response: Response): ImdbMovie => {
   const {
@@ -128,4 +127,7 @@ const main = async () => {
   const res = await fetchMovie('tt7282468')
   console.log(res)
 }
-// main()
+
+export default {
+  fetchMovie,
+}

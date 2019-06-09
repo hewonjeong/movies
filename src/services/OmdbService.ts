@@ -9,7 +9,8 @@ const API_KEY = process.env.OMDB_API_KEY
 
 const fetchMovie = async (id: string) => {
   const { data } = await aixos.get<Response>(API, {
-    params: { apikey: API_KEY, i: id },
+    params: { apikey: API_KEY, i: id, plot: 'full' },
+    timeout: 10000,
   })
   return processResponse(data)
 }
@@ -31,7 +32,7 @@ export const processResponse = (response: Response): ImdbMovie => {
   const runtime = num(Runtime.split(' ')[0])
   const ratings = parseRatings(Ratings)
   const votes = num(imdbVotes)
-  const boxOffice = num(BoxOffice.split('$')[1])
+  const boxOffice = BoxOffice ? num(BoxOffice.split('$')[1]) : undefined
   const casts = Actors.split(', ').filter(v => v !== 'N/A')
 
   const formalize = (res: object) => {
@@ -117,7 +118,7 @@ export interface Response {
   imdbID: string
   Type: string
   DVD: string
-  BoxOffice: string
+  BoxOffice?: string
   Production: string
   Website: string
   Response: string

@@ -1,5 +1,5 @@
 import stream from './utils/stream'
-import { processResponse, Response } from '../services/fetchMovie'
+import { processResponse, Response } from '../services/OmdbService'
 
 const INPUT = 'dists/rt.180127.000.tsv'
 const OMDB = 'dists/omdb.180127.000.tsv'

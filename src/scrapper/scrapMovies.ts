@@ -1,11 +1,12 @@
 import fs from 'fs'
 import { readFile } from '../utils/file'
-import fetchMovie, { ImdbMovie } from '../services/fetchMovie'
+import fetchMovie, { ImdbMovie } from '../services/OmdbService'
 import getRT from '../services/getRTUrl'
 import getDocument from '../getDocument'
 import parseMovie from '../parsers/parseMovie'
 import readline from 'readline'
 import es from 'event-stream'
+import OmdbService from '../services/OmdbService'
 // const OUTPUT = 'datasets/movies.tsv'
 
 // const outstream = fs.createWriteStream(OUTPUT)
@@ -45,7 +46,7 @@ const s = fs
 const main = async (target: string) => {
   console.log(target)
   try {
-    const imdbMovie = await fetchMovie(target)
+    const imdbMovie = await OmdbService.fetchMovie(target)
     if (imdbMovie.runtime < 60) {
       return
       // throw new Error( `${target}\ttoo short: ${imdbMovie.title} (runtime: ${imdbMovie.runtime})` )

@@ -2,7 +2,7 @@ import stream from './utils/stream'
 import fs from 'fs'
 import _ from 'lodash'
 import getRT from '../services/getRTUrl'
-import { ImdbMovie, Response, processResponse } from '../services/fetchMovie'
+import { ImdbMovie, Response, processResponse } from '../services/OmdbService'
 
 const st = require('util').promisify(setTimeout)
 const sleep = async (secs: number) => {

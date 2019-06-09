@@ -1,6 +1,6 @@
 import fs from 'fs'
 import stream from '../utils/stream'
-import { IBasic, TitleType } from './types'
+import { TitleType } from './types'
 import { parseLine } from '../utils/line'
 
 const excludes = new Set([

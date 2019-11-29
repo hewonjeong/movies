@@ -6,7 +6,7 @@ const LIMIT = 10
 const getRT = async (movie: Movie) => {
   try {
     const { data: response } = await Axios.get<Response>(API, {
-      params: { q: movie.title, limit: LIMIT },
+      params: { q: movie.title, limit: LIMIT, type: movie },
     })
     return process(movie, response)
   } catch (e) {
@@ -53,7 +53,7 @@ const main = async () => {
   })
   console.log(result)
 }
-//main()
+// main()
 
 type Movie = { title: string; year: number; casts: string[] }
 interface Response {

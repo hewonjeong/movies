@@ -16,18 +16,11 @@ const fetchMovie = async (id: string) => {
 }
 
 export const processResponse = (response: Response): ImdbMovie => {
-  const {
-    imdbID: id,
-    Title: title,
-    Plot: plot,
-    Language: language,
-    Country: country,
-    Production: production,
-    Website: website,
-    Type: type,
-    Actors,
-  } = response
-  const { Year, Runtime, Ratings, imdbVotes, BoxOffice } = response
+  const { imdbID: id, Title: title, Plot: plot, Language: language } = response
+  const { Country: country, Production: production, Type: type } = response
+  const { Website: website } = response
+  const { Year, Runtime, Ratings, imdbVotes, BoxOffice, Actors } = response
+
   const year = num(Year)
   const runtime = num(Runtime.split(' ')[0])
   const ratings = parseRatings(Ratings)
